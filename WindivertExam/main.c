@@ -186,15 +186,19 @@ void InsertURL(FILTERLIST* flist, char* Url)
 //return True if filter match
 BOOL CheckFiltering(FILTERLIST* flist, UINT* url)
 {
+	FILE* f = fopen("log.txt", "a+");
 	FILTERNODE* tmp = flist->head;
 	while (tmp)
 	{
 		if (!strcmp(tmp->filterUrl, url))
 		{
+			fprintf(f, "%s is filtered!! \n", tmp->filterUrl);
+			fclose(f);
 			return TRUE;
 		}
 		tmp = tmp->next;
 	}
+	fclose(f);
 	return FALSE;
 }
 
