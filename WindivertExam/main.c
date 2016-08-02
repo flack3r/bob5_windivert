@@ -125,14 +125,15 @@ void ParseURL(char* payload, int payload_len, char* URL)
 	char* Url_tmp = payload;
 	char Url_path[MAXURL] = { 0, };
 
+	//skip GET or POST string
 	while (*Url_tmp != '\x20')
 	{
 		Url_tmp += 1;
 	}
 	Url_tmp += 1;
 
+	//get Url path string into Url_path
 	i = 0;
-
 	while (*Url_tmp != '\x20')
 	{
 		Url_path[i] = *Url_tmp;
@@ -143,12 +144,14 @@ void ParseURL(char* payload, int payload_len, char* URL)
 	Url_tmp = strstr(payload, "Host: ");
 	if (Url_tmp != NULL)
 	{
+		//skip "Host:" string
 		while (*Url_tmp != '\x20')
 		{
 			Url_tmp += 1;
 		}
 		Url_tmp += 1;
 
+		//Get Host
 		i = 0;
 		while (*Url_tmp != '\x0d')
 		{
